@@ -48,3 +48,9 @@ Restart all the pods:
 ```
 $ oc delete pod --all
 ```
+
+Uninstall Airflow:
+
+```
+$ helm uninstall airflow
+```

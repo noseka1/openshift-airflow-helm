@@ -8,7 +8,7 @@ airflow:
     repository: apache/airflow
     tag: 1.10.10-python3.6
     ## values: Always or IfNotPresent
-    pullPolicy: IfNotPresent
+    pullPolicy: Always
     pullSecret: ""
 
   ## the airflow executor type to use

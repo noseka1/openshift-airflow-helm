@@ -42,3 +42,9 @@ Install Airflow:
 ```
 $ helm install --values values.yaml airflow ./airflow
 ```
+
+Restart all the pods:
+
+```
+$ oc delete pod --all
+```

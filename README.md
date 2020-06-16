@@ -43,8 +43,11 @@ Install Airflow:
 $ helm install --values values.yaml airflow ./airflow
 ```
 
+Some of the airflow pods will fail to start. This is caused by Helm applying Kubernetes resources in an incorrect order. Helm creates the scc resource only after the pods are already deployed which leads to pods running without the required privileges:
+
 ```
-$ NAME                                 READY   STATUS             RESTARTS   AGE
+$ oc get pod
+NAME                                 READY   STATUS             RESTARTS   AGE
 airflow-postgresql-0                 1/1     Running            0          4m14s
 airflow-scheduler-845cdf9958-zq4xw   0/1     CrashLoopBackOff   5          4m14s
 airflow-web-656656f779-2nvwk         0/1     CrashLoopBackOff   5          4m14s

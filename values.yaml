@@ -81,6 +81,7 @@ airflow:
   ##
   config:
     AIRFLOW__KUBERNETES__DAGS_IN_IMAGE: "True"
+    AIRFLOW__WEBSERVER__ENABLE_PROXY_FIX: "True"
 
   ## extra annotations for the web/scheduler/worker Pods
   ##
@@ -1366,3 +1367,11 @@ prometheusRule:
 postgresql:
   securityContext:
     enabled: false
+
+###################################
+# OpenShift - Route Configs
+###################################
+route:
+  ## if we should deploy Route resources
+  ##
+  enabled: true

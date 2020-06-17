@@ -2,18 +2,20 @@
 
 The standard [Airflow Helm chart](https://github.com/helm/charts/tree/master/stable/airflow) is used.
 
-Clone this git repo:
-
-```
-$ git clone https://github.com/noseka1/openshift-airflow-helm
-$ cd openshift-airflow-helm
-```
+## Deploying Airflow
 
 Initialize Helm:
 
 ```
 $ helm repo add stable https://kubernetes-charts.storage.googleapis.com/
 $ helm repo update
+```
+
+Clone this git repo:
+
+```
+$ git clone https://github.com/noseka1/openshift-airflow-helm
+$ cd openshift-airflow-helm
 ```
 
 Fetch the upstream Airflow Helm chart:
@@ -66,6 +68,15 @@ airflow-postgresql-0                 1/1     Running   0          23s
 airflow-scheduler-845cdf9958-wgcnv   1/1     Running   0          25s
 airflow-web-656656f779-dk9gb         1/1     Running   0          24s
 ```
+
+Obtain the Airflow web hostname:
+```
+$ oc get route airflow-web --output jsonpath='{.spec.host}'
+```
+
+Then visit `https://<route_hostname>` with your browser.
+
+## Uninstalling Airflow
 
 Uninstall Airflow:
 

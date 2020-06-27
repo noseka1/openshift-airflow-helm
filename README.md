@@ -88,3 +88,9 @@ Uninstall Airflow:
 ```
 $ helm uninstall airflow
 ```
+
+Delete the project:
+
+```
+$ oc delete project airflow
+```

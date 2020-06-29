@@ -107,4 +107,58 @@ dags:
       enabled: true
 ```
 
+Apply the configuration changes using helm:
+
+```
+$ helm upgrade airflow -f values.yaml ./airflow
+```
+
+## Configuring remote logging to S3-compatible storage
+
+Follow the guidance in [Generating a connection URI](https://airflow.apache.org/docs/stable/howto/connection/index.html#generating-a-connection-uri) to generate a connection URI:
+
+For example:
+```python
+import json
+from airflow.models.connection import Connection
+
+c = Connection(
+    conn_id='MyS3Conn',
+    conn_type='S3',
+    host='',
+    login='',
+    password='',
+    extra=json.dumps(
+        dict(
+            host='https://s3-openshift-storage.apps.cluster-04c1.sandbox321.opentlc.com',
+            aws_access_key_id='YSSUAtO4mFqJFW2mGcnJ',
+            aws_secret_access_key='F0TJj9O7BP2nrcwaKVWbL1EP4iWy4f3GoiQIt+eM'
+        )
+    ),
+)
+
+print(f"AIRFLOW_CONN_{c.conn_id.upper()}='{c.get_uri()}'")
+```
+The above Python script will print:
+
+```
+AIRFLOW_CONN_MYS3CONN='s3://?host=https%3A%2F%2Fs3-openshift-storage.apps.cluster-04c1.sandbox321.opentlc.com&aws_access_key_id=YSSUAtO4mFqJFW2mGcnJ&aws_secret_access_key=F0TJj9O7BP2nrcwaKVWbL1EP4iWy4f3GoiQIt%2BeM'
+```
+
+Edit the `values.yaml` file to configure the remote logging:
+
+```yaml
+airflow:
+  config:
+    AIRFLOW__CORE__REMOTE_LOGGING: "True"
+    AIRFLOW__CORE__REMOTE_BASE_LOG_FOLDER: "s3://mybucket"
+    AIRFLOW__CORE__REMOTE_LOG_CONN_ID: "MyS3Conn"
+    AIRFLOW__CORE__ENCRYPT_S3_LOGS: "False"
+    AIRFLOW_CONN_MYS3CONN: 's3://?host=https%3A%2F%2Fs3-openshift-storage.apps.cluster-04c1.sandbox321.opentlc.com&aws_access_key_id=YSSUAtO4mFqJFW2mGcnJ&aws_secret_access_key=F0TJj9O7BP2nrcwaKVWbL1EP4iWy4f3GoiQIt%2BeM'
+```
+
+Apply the configuration changes using helm:
+
+```
+$ helm upgrade airflow -f values.yaml ./airflow
 ```

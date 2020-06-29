@@ -86,3 +86,25 @@ Delete the entire project:
 ```
 $ oc delete project airflow
 ```
+
+## Configuring git-sync
+
+This section configures Airflow to pull the DAGs from a git repository. You must edit the `values.yaml` file. An example configuration looks as follows:
+
+```yaml
+airflow:
+  config:
+    AIRFLOW__KUBERNETES__DAGS_IN_IMAGE: "False"
+    AIRFLOW__KUBERNETES__GIT_REPO: https://github.com/noseka1/airflow-example-bookstore
+    AIRFLOW__KUBERNETES__GIT_BRANCH: master
+    AIRFLOW__KUBERNETES__GIT_DAGS_FOLDER_MOUNT_POINT: /opt/airflow/dags
+    AIRFLOW__KUBERNETES__DAGS_VOLUME_SUBPATH: repo
+    
+dags:
+  git:
+    url: https://github.com/noseka1/airflow-example-bookstore
+    gitSync:
+      enabled: true
+```
+
+```

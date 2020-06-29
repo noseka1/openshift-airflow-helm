@@ -76,6 +76,7 @@ $ helm uninstall airflow
 ```
 
 Remove the database volume:
+
 ```
 $ oc delete pvc data-airflow-postgresql-0
 ```

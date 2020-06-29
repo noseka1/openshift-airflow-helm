@@ -87,7 +87,7 @@ Delete the entire project:
 $ oc delete project airflow
 ```
 
-## Configuring git-sync
+## Configuring git-sync for DAGs
 
 This section configures Airflow to pull the DAGs from a git repository. You must edit the `values.yaml` file. An example configuration looks as follows:
 

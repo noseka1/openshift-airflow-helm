@@ -107,7 +107,7 @@ dags:
       enabled: true
 ```
 
-Apply the configuration changes using helm:
+Apply the configuration changes using Helm:
 
 ```
 $ helm upgrade airflow -f values.yaml ./airflow
@@ -157,7 +157,7 @@ airflow:
     AIRFLOW_CONN_MYS3CONN: 's3://?host=https%3A%2F%2Fs3-openshift-storage.apps.cluster-04c1.sandbox321.opentlc.com&aws_access_key_id=YSSUAtO4mFqJFW2mGcnJ&aws_secret_access_key=F0TJj9O7BP2nrcwaKVWbL1EP4iWy4f3GoiQIt%2BeM'
 ```
 
-Apply the configuration changes using helm:
+Apply the configuration changes using Helm:
 
 ```
 $ helm upgrade airflow -f values.yaml ./airflow

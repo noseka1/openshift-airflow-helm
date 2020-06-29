@@ -75,7 +75,12 @@ Uninstall Airflow:
 $ helm uninstall airflow
 ```
 
-Delete the project:
+Remove the database volume:
+```
+$ oc delete pvc data-airflow-postgresql-0
+```
+
+Delete the entire project:
 
 ```
 $ oc delete project airflow

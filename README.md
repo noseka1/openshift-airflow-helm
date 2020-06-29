@@ -3,7 +3,7 @@
 This repo deploys Apache Airflow to OpenShift. It is based on the upstream [Airflow Helm chart](https://github.com/helm/charts/tree/master/stable/airflow) and adds the following features:
 
 1. Configured KubernetesExecutor
-2. SCCs are installed to allow Airflow containers to run as uid=50000
+2. Airflow pods run with SCC anyuid
 3. PostgreSQL configuration is fixed to work on OpenShift
 4. Edge-terminated TLS route is created for accessing the Airflow dashboard
 
@@ -50,28 +50,14 @@ Install Airflow:
 $ helm install --values values.yaml airflow ./airflow
 ```
 
-Some of the airflow pods will fail to start. This is caused by Helm applying Kubernetes/OpenShift resources in an incorrect order. Helm creates the scc resource only after the pods have already been deployed which leads to pods starting without the required privileges:
-
-```
-$ oc get pod
-NAME                                 READY   STATUS             RESTARTS   AGE
-airflow-postgresql-0                 1/1     Running            0          4m14s
-airflow-scheduler-845cdf9958-zq4xw   0/1     CrashLoopBackOff   5          4m14s
-airflow-web-656656f779-2nvwk         0/1     CrashLoopBackOff   5          4m14s
-```
-
-Restart the pods to fix the issue:
-
-```
-$ oc delete pod --all
-```
+Some of the Airflow pods will restart. This is caused by the PostgreSQL database not being ready yet. Eventually, the PostgreSQL comes up and the pods will stop restarting.
 
 ```
 $ oc get pod
 NAME                                 READY   STATUS    RESTARTS   AGE
-airflow-postgresql-0                 1/1     Running   0          23s
-airflow-scheduler-845cdf9958-wgcnv   1/1     Running   0          25s
-airflow-web-656656f779-dk9gb         1/1     Running   0          24s
+airflow-postgresql-0                 1/1     Running   0          90s
+airflow-scheduler-6878f776bc-lwmcg   1/1     Running   2          90s
+airflow-web-6c7d584ddd-22dd9         1/1     Running   1          90s
 ```
 
 Obtain the Airflow web hostname:

@@ -4,7 +4,7 @@ This repo deploys Apache Airflow to OpenShift. It is based on the upstream [Airf
 
 1. Configured KubernetesExecutor
 2. Airflow pods run with SCC anyuid
-3. PostgreSQL configuration is fixed to work on OpenShift
+3. PostgreSQL configured to run on OpenShift
 4. Edge-terminated TLS route is created for accessing the Airflow dashboard
 
 ## Deploying Airflow

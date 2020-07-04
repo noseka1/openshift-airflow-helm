@@ -27,7 +27,7 @@ Fetch the upstream Airflow Helm chart:
 
 ```
 $ helm pull stable/airflow \
-    --version 7.1.5 \
+    --version 7.1.6 \
     --untar \
     --untardir .
 ```

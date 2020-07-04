@@ -115,6 +115,8 @@ $ helm upgrade airflow -f values.yaml ./airflow
 
 ## Configuring remote logging to S3-compatible storage
 
+This section configures Airflow to send logs to the S3 bucket hosted by Noobaa.
+
 Follow the guidance in [Generating a connection URI](https://airflow.apache.org/docs/stable/howto/connection/index.html#generating-a-connection-uri) to generate a connection URI:
 
 For example:

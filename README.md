@@ -1,4 +1,4 @@
-# Deploying Apache Airflow to OpenShift using the standard Helm chart
+# Deploying Apache Airflow to OpenShift using the official Helm chart
 
 This repo deploys Apache Airflow to OpenShift. It is based on the upstream [Airflow Helm chart](https://github.com/helm/charts/tree/master/stable/airflow) and adds the following features:
 
